@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="module">
+    <div class="container-buttons">
+      <div>
+        <h4>Fighter 1</h4>
+        <mat-form-field>
+          <mat-label>First Fighter</mat-label>
+          <mat-select 
+            (selectionChange)="onSelectFirstPerson($event)">
+            <mat-option *ngFor="let person of persons$ | async" [value]="person">
+              {{ person.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div style="margin-left: 20px;">
+        <h4>Fighter 2</h4>
+        <mat-form-field>
+          <mat-label>Second Fighter</mat-label>
+          <mat-select (selectionChange)="onSelectSecondPerson($event)">
+            <mat-option *ngFor="let person of persons$ | async" [value]="person">
+              {{ person.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <h3>{{ label }}</h3>
+    <div class="buttons">
+      <button mat-raised-button color="warn" [disabled]="!(firstSelected  && secondSelected)" (click)="fight()">Fight</button>
+    </div>
+    <div class="container-cards">
+      <app-person [isFirst]="true" [personSelected]="firstSelected"></app-person>
+      <app-person [isFirst]="false" [personSelected]="secondSelected"></app-person>
+    </div>
+    <div *ngIf="winnerName" style="margin-top: 20px;">Winner: {{ winnerName  }}</div>
+  </div>
+
+</div>
